@@ -37,8 +37,7 @@ def strassen(a, b):
 	n = len(a[0])
 	if (n != len(b)):
 		raise Exception("Matrices cannot be multiplied")
-	if (n != 1):
-		validate_is_power_of_two(n)
+	validate_is_power_of_two(n)
 
 	return _strassen(a,b)
 
