@@ -4,6 +4,10 @@
 """
 
 def karatsuba_multiplication(number1: int, number2: int):
+	"""
+	Karatsuba multiplication algorithm
+	"""
+
 	# Base case
 	if (number1 < 10 and number2 < 10):
 		return number1 * number2
