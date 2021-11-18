@@ -9,7 +9,7 @@ def main():
 # If inputs are not power of two, adds zeros to matrices, runs Strassen's
 # algorithm and then extract the result without the extra zero padding
 
-# For the base implemetnation of Strassen's Algorithm, see strassen.py
+# For the base implementation of Strassen's Algorithm, see strassen.py
 def strassen_generalized(a, b):
 	m = len(a)
 	n = len(a[0])
