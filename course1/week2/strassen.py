@@ -5,7 +5,9 @@ def main():
 	run_multiplication_tests()
 
 # Strassen's Algorithm for matrix multiplication
-# This method expects matrices that are n*n with n being a power of two
+
+# Expects matrices that are n*n with n being a power of two
+
 # For a generalized version (any input) see strassen_generalized.py
 def strassen(a, b):
 	n = len(a[0])
