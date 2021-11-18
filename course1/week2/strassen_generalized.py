@@ -1,5 +1,5 @@
 import math
-from strassen import strassen, zeros_matrix
+from strassen import _strassen, zeros_matrix
 
 def main():
 	run_multiplication_tests()
@@ -20,7 +20,7 @@ def strassen_generalized(a, b):
 
 	[a, b] = pad_with_zeros_until_power_of_two(a, b)
 
-	result = strassen(a, b)
+	result = _strassen(a, b) # Implemented on strassen.py
 
 	return extract_result_without_zero_padding(result, m, p)
 

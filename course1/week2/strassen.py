@@ -9,27 +9,21 @@ def main():
 # Expects matrices that are n*n with n being a power of two
 
 # For a generalized version (any input) see strassen_generalized.py
-def strassen(a, b):
-	n = len(a[0])
-	if (n != len(b)):
-		raise Exception("Matrices cannot be multiplied")
-
+def _strassen(a, b):
 	# Base case - 1x1 matrices being multiplied
 	if (len(a[0]) == 1):
 		return [[a[0][0]*b[0][0]]]
 
-	validate_is_power_of_two(n)
-
 	[a11, a12, a21, a22] = split(a)
 	[b11, b12, b21, b22] = split(b)
 
-	p1 = strassen(add(a11, a22), add(b11, b22))
-	p2 = strassen(add(a21, a22), b11)
-	p3 = strassen(a11, subtract(b12, b22))
-	p4 = strassen(a22, subtract(b21, b11))
-	p5 = strassen(add(a11, a12), b22)
-	p6 = strassen(subtract(a21, a11), add(b11, b12))
-	p7 = strassen(subtract(a12, a22), add(b21, b22))
+	p1 = _strassen(add(a11, a22), add(b11, b22))
+	p2 = _strassen(add(a21, a22), b11)
+	p3 = _strassen(a11, subtract(b12, b22))
+	p4 = _strassen(a22, subtract(b21, b11))
+	p5 = _strassen(add(a11, a12), b22)
+	p6 = _strassen(subtract(a21, a11), add(b11, b12))
+	p7 = _strassen(subtract(a12, a22), add(b21, b22))
 
 	q11 = add(add(p1, p4), subtract(p7, p5))
 	q12 = add(p3, p5)
@@ -38,14 +32,22 @@ def strassen(a, b):
 
 	return join_quadrants(q11, q12, q21, q22)
 
+# Validates inputs before calling actual method
+def strassen(a, b):
+	n = len(a[0])
+	if (n != len(b)):
+		raise Exception("Matrices cannot be multiplied")
+	if (n != 1):
+		validate_is_power_of_two(n)
+
+	return _strassen(a,b)
+
 
 ##  BASIC OPERATIONS
 
 # Splits a n*n (where n is a power of 2) matrix M matrix into quadrants in the form:
 def split(matrix):
-	validate_rows_equals_columns(matrix)
 	n = len(matrix)
-	validate_is_power_of_two(n)
 	n_2 = n // 2
 
 	q11 = zeros_matrix(n_2, n_2)
@@ -79,7 +81,6 @@ def join_quadrants(q11, q12, q21, q22):
 	return result
 
 def add(x, y):
-	validate_same_dimensions(x, y)
 	rows = len(x)
 	cols = len(x[0])
 	result = zeros_matrix(rows, cols)
@@ -89,7 +90,6 @@ def add(x, y):
 	return result
 
 def subtract(x, y):
-	validate_same_dimensions(x, y)
 	rows = len(x)
 	cols = len(x[0])
 	result = zeros_matrix(rows, cols)
@@ -109,16 +109,6 @@ def zeros_matrix(rows, columns):
 def validate_is_power_of_two(x):
 	if (not math.log(x, 2).is_integer()):
 		raise Exception("Not a power of 2")
-
-# Validates that a matrix is in n*n format
-def validate_rows_equals_columns(matrix):
-	if (len(matrix) != len(matrix[0])):
-		raise Exception("Matrix is not n*n")
-
-# Validates two matrices have the same dimensions
-def validate_same_dimensions(x, y):
-	if (len(x) != len(y) or len(x[0]) != len(y[0])):
-		raise Exception("Matrices must have the same dimensions")
 
 # Prints a matrix
 def print_matrix(m):
