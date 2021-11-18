@@ -1,3 +1,7 @@
+"""
+    Author: Leonardo Ribeiro
+    Python Version: 3.8.10
+"""
 
 def karatsuba_multiplication(number1: int, number2: int):
 	# Base case
@@ -24,9 +28,9 @@ def test(number1, number2):
 	result = karatsuba_multiplication(number1, number2)
 	expected_result = number1 * number2
 	if (result == expected_result):
-		print(number1, "*", number2, " = ", result, "OK")
+		print("PASSED: ", number1, "*", number2, " = ", result)
 	else:
-		print(number1, "*", number2, " ---- FAILED ----")
+		print("--> FAILED: ", number1, "*", number2)
 		print("result: ", result, "expected result: ", expected_result)
 
 test(8568, 2386)

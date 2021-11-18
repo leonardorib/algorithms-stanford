@@ -1,15 +1,24 @@
+"""
+    Author: Leonardo Ribeiro
+    Python Version: 3.8.10
+"""
+
 import math
 
 def main():
 	run_tests_basic_operations()
 	run_multiplication_tests()
 
-# Strassen's Algorithm for matrix multiplication
 
-# Expects matrices that are n*n with n being a power of two
-
-# For a generalized version (any input) see strassen_generalized.py
 def _strassen(a, b):
+	"""
+	Strassen's Algorithm for matrix multiplication
+
+	Expects two matrices that are n*n with n being a power of two
+
+	For a generalized version (any input) see strassen_generalized.py
+	"""
+
 	# Base case - 1x1 matrices being multiplied
 	if (len(a[0]) == 1):
 		return [[a[0][0]*b[0][0]]]
@@ -32,8 +41,11 @@ def _strassen(a, b):
 
 	return join_quadrants(q11, q12, q21, q22)
 
-# Validates inputs before calling actual method
 def strassen(a, b):
+	"""
+	Wrapper around Strassen algorithm implementation to validate inputs
+	before starting
+	"""
 	n = len(a[0])
 	if (n != len(b)):
 		raise Exception("Matrices cannot be multiplied")
@@ -42,10 +54,12 @@ def strassen(a, b):
 	return _strassen(a,b)
 
 
-##  BASIC OPERATIONS
+# Basic operations
 
-# Splits a n*n (where n is a power of 2) matrix M matrix into quadrants in the form:
 def split(matrix):
+	"""
+	Splits a n*n (where n is a power of 2) matrix M matrix into quadrants in the form:
+	"""
 	n = len(matrix)
 	n_2 = n // 2
 
@@ -64,6 +78,9 @@ def split(matrix):
 	return [q11, q12, q21, q22]
 
 def join_quadrants(q11, q12, q21, q22):
+	"""
+	Creates a matrix from it's quadrants
+	"""
 	n_2 = len(q11)
 	n = 2 * n_2
 	result = zeros_matrix(n, n)
@@ -80,6 +97,9 @@ def join_quadrants(q11, q12, q21, q22):
 	return result
 
 def add(x, y):
+	"""
+	Matrices addition -> x + y
+	"""
 	rows = len(x)
 	cols = len(x[0])
 	result = zeros_matrix(rows, cols)
@@ -89,6 +109,9 @@ def add(x, y):
 	return result
 
 def subtract(x, y):
+	"""
+	Matrices subtraction -> x - y
+	"""
 	rows = len(x)
 	cols = len(x[0])
 	result = zeros_matrix(rows, cols)
@@ -98,52 +121,30 @@ def subtract(x, y):
 	return result
 
 
-## HELPER METHODS
+# Helper methods
 
-# Initializes a matrix with zeros
 def zeros_matrix(rows, columns):
-    return [[0 for col in range(rows)] for row in range(columns)]
+	"""
+	Initializes a matrix with zeros
+	"""
+	return [[0 for col in range(rows)] for row in range(columns)]
 
-# Validates a number is power of two
 def validate_is_power_of_two(x):
+	"""
+	Validates a number is power of two
+	"""
 	if (not math.log(x, 2).is_integer()):
 		raise Exception("Not a power of 2")
 
-# Prints a matrix
 def print_matrix(m):
+	"""
+	Prints a matrix
+	"""
 	for i in range(len(m)):
 		print(m[i])
 
-# Adds a columns filled with zeros at the matrix right
-def add_zeros_columns(matrix, cols_number):
-	for i in range(len(matrix)):
-		for n in range(cols_number):
-			matrix[i].append(0)
-	return matrix
+# Tests for matrix multiplication
 
-# Adds a row filled with zeros at the matrix bottom
-def add_zeros_rows(matrix, rows_number):
-	cols = len(matrix[0])
-	zeros_row = [0 for col in range(cols)]
-	for n in range(rows_number):
-		matrix.append(zeros_row)
-	return matrix
-
-# Complete matrix with zeros until is with n*n format
-def make_matrix_square(matrix, desired_size):
-	rows = len(matrix)
-	cols = len(matrix[0])
-
-	if (rows > desired_size or cols > desired_size):
-		raise Exception("Cannot increase matrix size")
-
-	matrix = add_zeros_columns(matrix, desired_size - cols)
-	matrix = add_zeros_rows(matrix, desired_size - rows)
-
-	return matrix
-
-
-##  TESTING
 def test_strassen_multiply(a, b, expected):
 	result = strassen(a, b)
 	if (result == expected):
@@ -157,6 +158,9 @@ def test_strassen_multiply(a, b, expected):
 	print()
 
 def run_multiplication_tests():
+	"""
+	Runs tests for matrices multiplications with known results
+	"""
 	test_strassen_multiply(
 		[
 			[5, 7, 9, 10],
@@ -178,7 +182,8 @@ def run_multiplication_tests():
 		]
 	)
 
-##  TESTING BASIC OPERATIONS
+# Tests for basic operations
+
 def test_split(matrix, expected11, expected12, expected21, expected22):
 	quadrants = split(matrix)
 	expected_quadrants = [expected11, expected12, expected21, expected22]
@@ -236,6 +241,9 @@ def test_subtract(x, y, expected):
 	print()
 
 def run_tests_basic_operations():
+	"""
+	Runs tests for basic operations known results
+	"""
 	test_join_quadrants(
 		[[1,2],[4,5]],
 		[[3,4],[6,7]],
@@ -263,5 +271,6 @@ def run_tests_basic_operations():
 	test_add([[1,2],[3,4]], [[2,1],[2,1]], [[3,3],[5,5]])
 	test_subtract([[1,2],[3,4]], [[2,1],[2,1]], [[-1,1],[1,3]])
 
+# Runs code
 if __name__ == "__main__":
     main()

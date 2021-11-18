@@ -1,8 +1,15 @@
+"""
+    Author: Leonardo Ribeiro
+    Python Version: 3.8.10
+"""
+
 # For testing purposes
 import random
 
-# Merge two sorted lists into one sorted list
 def merge(A, B):
+	"""
+	Merge two sorted lists into one sorted list
+	"""
 	C = [0]*(len(A) + len(B))
 
 	i = 0
@@ -18,9 +25,11 @@ def merge(A, B):
 			j = j + 1
 		k = k + 1
 
-	# i and j are not zero at this point,
-	# So the last two loops only execute for the remaining elements
-	# in case of one list is "complete" and the other is not.
+	"""
+	i and j are not zero at this point,
+	So the last two loops only execute for the remaining elements
+	in case of one list is "complete" and the other is not.
+	"""
 	while (i < len (A)):
 		C[k] = A[i]
 		i = i + 1
@@ -32,8 +41,11 @@ def merge(A, B):
 		k = k + 1
 	return C
 
-# Sorts a list of numbers
 def merge_sort(list):
+	"""
+	Sorts a list of numbers
+	"""
+
 	 # Base case
 	if (len(list) <= 1):
 		return list
@@ -55,21 +67,28 @@ def merge_sort(list):
 	return C
 
 def test_merge_only(A, B):
+	"""
+	Tests merge operation
+	"""
 	result = merge(A, B)
 	expected_result = sorted([*A, *B])
 	if (result == expected_result):
-		print("Merge PASSED - Result:", result)
+		print("PASSED Merge operation - Result:", result)
 	else:
-		print("Merge FAILED - Result: ", result, "  Expected: ", expected_result)
+		print("--> FAILED Merge operation - Result: ", result, "  Expected: ", expected_result)
 
 def test_merge_sort(list):
+	"""
+	Tests merge sort implementation
+	"""
 	result = merge_sort(list)
 	expected_result = sorted(list)
 	if (result == expected_result):
-		print("Merge Sort PASSED - Result:", result)
+		print("PASSED Merge Sort - Result:", result)
 	else:
-		print("Merge Sort FAILED - Result: ", result, "  Expected: ", expected_result)
+		print("--> FAILED Merge Sort - Result: ", result, "  Expected: ", expected_result)
 
+# Running tests
 
 test_merge_only([1,3,5], [2,4,9,11])
 test_merge_only([1,3,5,22,22,102,106], [2,4,9,11,45,65,109,152])
