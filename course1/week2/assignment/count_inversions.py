@@ -12,9 +12,11 @@
 	With some slightly modifications is possible to calculate
 	the number of inversions on a list in O(n*log(n)) time (as in merge sort)
 """
+import os
 
 def main():
 	run_tests()
+	run_on_assignment_input()
 
 def merge_and_count_split_inv(A, B):
 	"""
@@ -81,6 +83,7 @@ def test_sort_and_count_inv(list, expected_count):
 		print("--> FAILED sort_and_count_inv - Inversions:", count, "Expected: ", expected_count)
 
 def run_tests():
+	print("Tests")
 	test_sort_and_count_inv([], 0)
 	test_sort_and_count_inv([1], 0)
 	test_sort_and_count_inv([2, 4, 1, 3, 5], 3)
@@ -89,6 +92,17 @@ def run_tests():
 	test_sort_and_count_inv([1,2,3,1,2], 3)
 	test_sort_and_count_inv([22,16,15,7,2,1], 15)
 	test_sort_and_count_inv([1, 20, 6, 4, 5], 5)
+	print()
+
+def run_on_assignment_input():
+	print("Assignment")
+
+	filepath = os.path.join(os.path.dirname(__file__),"_bcb5c6658381416d19b01bfc1d3993b5_IntegerArray.txt")
+	with open(filepath) as file:
+		list = [int(line) for line in file]
+
+	(_, inversions) = sort_and_count_inv(list)
+	print("Inversions on assignment list:", inversions)
 
 # Runs code
 if __name__ == "__main__":
