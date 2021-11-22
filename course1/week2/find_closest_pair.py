@@ -82,6 +82,7 @@ def _find_closest_pair(points_sorted_by_x: List[Point], points_sorted_by_y: List
 			if (calculate_distance(middle_strip[i], middle_strip[j]) < delta):
 				closest_pair = [middle_strip[i], middle_strip[j]]
 				delta = calculate_distance(middle_strip[i], middle_strip[j])
+
 	return (closest_pair, calculate_distance(closest_pair[0], closest_pair[1]))
 
 def brute_force_closest_pair(points: List[Point]) -> PairAndDistance:
