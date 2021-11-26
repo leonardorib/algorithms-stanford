@@ -2,7 +2,7 @@ import random
 
 def partition(list, start, end):
 	"""
-	Randomly selects an element an element of the array as pivot
+	Randomly selects an element of the array as pivot
 	then rearrange the array such that every element to the left of the array
 	is less than the pivot and every element to the right of the array is greater than the pivot
 	"""
