@@ -38,8 +38,6 @@ def quick_sort(list, start, end):
 		quick_sort(list, start, pivotIndex - 1)
 		quick_sort(list, pivotIndex + 1, end)
 
-		return list
-
 def test_quick_sort():
 	print("Running tests...")
 	passed = True
